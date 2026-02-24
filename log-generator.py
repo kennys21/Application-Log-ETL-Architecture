@@ -1,0 +1,57 @@
+import logging
+import random
+import time
+import datetime
+import sys
+
+# --- Configuration ---
+LOG_FILE = "random_app.log"
+LOG_LEVELS = [logging.INFO, logging.WARNING, logging.ERROR]
+USER_IDS = [f"user_{i:04d}" for i in range(10, 20)]
+ACTIONS = ["login", "logout", "view_page", "purchase","data_fetch"]
+INTERVAL_SECONDS = 0.5 # Time between log entries
+
+# Configure the logger
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='a', # Append mode
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+
+logger = logging.getLogger(__name__)
+
+def generate_random_log():
+    """Generates and writes a single random log entry."""
+    user_id = random.choice(USER_IDS)
+    action = random.choice(ACTIONS)
+    status = random.choice(["success", "failure", "delayed"])
+    
+    # Generate a random message
+    if status == "failure":
+        level = logging.ERROR
+    elif status == "delayed":
+        level = logging.WARNING
+    else:
+        level = logging.INFO
+    message = f"user_id={user_id}-Action={action}-status={status}"
+    # Log the message at the chosen level
+    logger.log(level, message)
+
+def main():
+    print(f"--- Starting random log generation to {LOG_FILE} ---")
+    print("Press Ctrl+C to stop.")
+    
+    try:
+       for _ in range(100):
+            generate_random_log()
+            time.sleep(INTERVAL_SECONDS)
+    except KeyboardInterrupt:
+        print("\n--- Log generation stopped ---")
+
+if __name__ == "__main__":
+    main()
+
+
+
+
