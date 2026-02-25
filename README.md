@@ -1,64 +1,168 @@
-Cloud Log Ingestion and Transformation Pipeline
-Overview
+<a id="readme-top"></a>
 
-This project demonstrates a cloud-based batch log ingestion and transformation pipeline built using AWS infrastructure and Python.
+# Cloud Log Ingestion and Transformation Pipeline
 
-The goal of this project is to simulate how application logs are ingested, validated, cleaned, transformed, and stored in a relational database for analytical querying.
+A cloud-based batch log ingestion and transformation pipeline built using AWS and Python.  
+This project simulates application log ingestion, validation, cleaning, and loading into a relational database for analytical querying.
 
-This project is part of my data engineering learning journey and focuses on building foundational pipeline architecture using EC2, RDS, Python, and SQL.
+This repository represents a foundational step in my data engineering learning journey, focusing on building structured ETL pipelines and layered data architecture.
 
-Architecture
+---
 
-High-level pipeline flow:
+## About The Project
 
-Log generation (simulated application logs)
+This project demonstrates how semi-structured log data can be:
 
-Raw log storage
+- Generated (simulating application events)
+- Stored in a raw format
+- Parsed and validated
+- Cleaned and transformed
+- Loaded into AWS RDS
+- Queried using SQL for analytics
 
-Parsing and validation (Python)
+The goal is to design and implement a structured batch ETL pipeline using cloud infrastructure while applying data engineering best practices such as schema enforcement, deduplication, and layered architecture.
 
-Data cleaning and transformation
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Load into AWS RDS
+---
 
-Analytical querying
+## Architecture Overview
 
-Conceptual layers:
+Pipeline flow:
 
-Raw layer
-Logs are stored as generated, including malformed or incomplete records.
+1. Log generation (Python)
+2. Raw data storage
+3. Parsing and validation
+4. Data transformation
+5. Load into AWS RDS
+6. Analytical SQL queries
 
-Staging layer
-Logs are parsed into structured format with schema enforcement. Invalid or corrupted records are filtered or flagged.
+Data layers:
 
-Processed layer
-Cleaned, normalized, and deduplicated data is stored in AWS RDS for querying.
+Raw Layer  
+Logs stored as generated, including malformed and incomplete records.
 
-Tech Stack
+Staging Layer  
+Logs parsed into structured format with validation applied.
 
-##Python (data generation, parsing, transformation)
+Processed Layer  
+Cleaned, normalized, and deduplicated data stored in RDS for analysis.
 
-#AWS EC2 (compute environment)
+---
 
-##AWS RDS (relational database)
+## Built With
 
-##PostgreSQL
+- Python
+- AWS EC2
+- AWS RDS
+- PostgreSQL
 
-Dataset
+---
 
-Logs are generated using a Python script to simulate application events.
 
-To better approximate real-world conditions, the generator intentionally introduces:
+---
 
-Missing fields
+## Dataset
 
-Corrupted timestamps
+Logs are generated using a custom Python script that simulates application events.
 
-Mixed log levels (INFO, ERROR, WARNING)
+To approximate real-world conditions, the generator intentionally introduces:
 
-Duplicate records
+- Missing fields
+- Corrupted timestamps
+- Mixed log levels (INFO, WARNING, ERROR)
+- Duplicate records
+- Malformed log entries
 
-Malformed log lines
-PostgreSQL or MySQL
+This ensures the transformation layer must handle:
 
-SQL
+- Null value handling
+- Timestamp normalization
+- Deduplication
+- Schema enforcement
+- Invalid record filtering
+
+Although synthetic, the dataset is intentionally imperfect to simulate real ingestion challenges.
+
+---
+
+## ETL Process
+
+Extract  
+Logs are generated and written to the raw layer.
+
+Transform  
+Python scripts parse log lines, validate structure, normalize timestamps, remove duplicates, and enforce schema consistency.
+
+Load  
+Cleaned records are inserted into AWS RDS using parameterized SQL queries.
+
+---
+
+## Example Analytical Queries
+
+- Count of logs by level
+- Error frequency by service
+- Logs aggregated by hour
+- Detection of abnormal error spikes
+
+
+
+### Prerequisites
+
+- Python 3.x
+- AWS account
+- EC2 instance configured
+- RDS instance configured
+- Database credentials set
+
+---
+
+## Limitations
+
+- Batch processing only
+- Manual execution (no scheduler)
+- No S3 data lake layer
+- No orchestration framework
+- No containerization
+- Synthetic data source
+
+This project focuses on foundational pipeline architecture rather than production-grade deployment.
+
+---
+
+## Roadmap
+
+- Introduce S3 as raw data storage
+- Add workflow orchestration (e.g., Airflow)
+- Containerize using Docker
+- Implement table partitioning
+- Add automated data quality checks
+- Introduce streaming ingestion (Kafka or Kinesis)
+- Add CI/CD integration
+
+---
+
+## Learning Objectives
+
+Through this project i mainly practiced:
+
+- Designing layered data pipelines
+- Handling semi-structured log data
+- Writing ETL validation logic
+- Designing relational schemas
+- Deploying compute and storage in AWS
+- Structuring a repository using engineering best practices
+
+---
+
+## Contact
+
+Your Name  
+GitHub: https://github.com/kennys21
+
+
+Project Link:  
+https://github.com/kennys21/Application-Log-Architecture
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
