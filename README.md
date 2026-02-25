@@ -57,7 +57,6 @@ Cleaned, normalized, and deduplicated data stored in RDS for analysis.
 - AWS RDS
 - PostgreSQL
 
----
 
 
 ---
